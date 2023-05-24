@@ -1,0 +1,210 @@
+[
+    {
+        "id": "c63a0ff199575741",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a15358b5ea4a4db2",
+        "type": "ibmiot in",
+        "z": "c63a0ff199575741",
+        "authentication": "apiKey",
+        "apiKey": "6d8be82fde335a13",
+        "inputType": "evt",
+        "logicalInterface": "",
+        "ruleId": "",
+        "deviceId": "12345",
+        "applicationId": "",
+        "deviceType": "smartdustbin",
+        "eventType": "+",
+        "commandType": "",
+        "format": "json",
+        "name": "IBM IoT",
+        "service": "registered",
+        "allDevices": "",
+        "allApplications": "",
+        "allDeviceTypes": "",
+        "allLogicalInterfaces": "",
+        "allEvents": true,
+        "allCommands": "",
+        "allFormats": "",
+        "qos": 0,
+        "x": 230,
+        "y": 160,
+        "wires": [
+            [
+                "dc7194feecafc3fa",
+                "5dbf359f0fbf8562",
+                "d3037d3a30341bd3"
+            ]
+        ]
+    },
+    {
+        "id": "dc7194feecafc3fa",
+        "type": "debug",
+        "z": "c63a0ff199575741",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5dbf359f0fbf8562",
+        "type": "function",
+        "z": "c63a0ff199575741",
+        "name": "dustbin",
+        "func": "msg.payload=msg.payload.distance\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "77b56ec6083664f2",
+                "9884953cc0933f80"
+            ]
+        ]
+    },
+    {
+        "id": "77b56ec6083664f2",
+        "type": "ui_gauge",
+        "z": "c63a0ff199575741",
+        "name": "",
+        "group": "b7771ab55bf3a9e9",
+        "order": 56,
+        "width": 10,
+        "height": 5,
+        "gtype": "wave",
+        "title": "Dustbin Level",
+        "label": "",
+        "format": "{{value}}",
+        "min": "3",
+        "max": "300",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9884953cc0933f80",
+        "type": "debug",
+        "z": "c63a0ff199575741",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d3037d3a30341bd3",
+        "type": "function",
+        "z": "c63a0ff199575741",
+        "name": "message",
+        "func": "msg.payload=msg.payload.distance\nif(msg.payload<=2){\n\n    msg.payload=\"Bin Empty!\";\n    \n}\nelse if(msg.payload>300){\n\n    msg.payload=\"Bin Full!\";\n}\nelse{\n    msg.payload=\"Bin can be used!\";\n\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "33dc0617d77ee404",
+                "1a38759bf1e7463a"
+            ]
+        ]
+    },
+    {
+        "id": "33dc0617d77ee404",
+        "type": "ui_text",
+        "z": "c63a0ff199575741",
+        "group": "b7771ab55bf3a9e9",
+        "order": 108,
+        "width": 6,
+        "height": 5,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 530,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1a38759bf1e7463a",
+        "type": "debug",
+        "z": "c63a0ff199575741",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "6d8be82fde335a13",
+        "type": "ibmiot",
+        "name": "",
+        "keepalive": "60",
+        "serverName": "",
+        "cleansession": true,
+        "appId": "",
+        "shared": false
+    },
+    {
+        "id": "b7771ab55bf3a9e9",
+        "type": "ui_group",
+        "name": "Dustbin Level",
+        "tab": "fac361559fed2381",
+        "order": 1,
+        "disp": true,
+        "width": "22",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fac361559fed2381",
+        "type": "ui_tab",
+        "name": "Smart Dustbin",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
